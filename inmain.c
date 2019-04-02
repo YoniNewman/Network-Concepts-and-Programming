@@ -45,9 +45,9 @@ void Case1Handler(){
     do{
         printf("Please enter a mask:\n");
         scanf("%d",&mask);
-        if(mask<1 || mask >32)
+        if(mask<0 || mask >32)
             printf("invalid mask!!!\n");
-    }while(mask<1 || mask >32);
+    }while(mask<0 || mask >32);
     get_broadcast_address(ipadd, (char)mask, ipadd_buffer);
     printf("for ip address %s/%d the broadcast address is: %s\n",ipadd,mask,ipadd_buffer);
 }

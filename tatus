@@ -1,0 +1,17 @@
+[33mcommit c89eb6b58d902a5e637285574bf20c8ab6e74163[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Yoni <yonixd@gmail.com>
+Date:   Tue Apr 2 23:27:47 2019 +0300
+
+    seperated to main and headers files
+
+[33mcommit d1d386fe5bd870b399082ae64836b5673137dd6f[m
+Author: Yoni <yonixd@gmail.com>
+Date:   Tue Apr 2 22:54:42 2019 +0300
+
+    first version complete
+
+[33mcommit ef2deb74a51046ea2a618d14c01ee57b680d2c99[m
+Author: Yoni <yonixd@gmail.com>
+Date:   Mon Apr 1 23:46:05 2019 +0300
+
+    initial commit
