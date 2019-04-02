@@ -1,25 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "ip_math_coding.h"
 
-#define PREFIX_LEN 16
-#define DEBUG 1
-
-//Q1
-void get_broadcast_address(char *ip_addr, char mask, char *output_buffer);
-unsigned char Str2Int(char str[], int *i);
-void Byte2IPStr(char *output_buffer, unsigned char byte[]);
-void set_bits_ip_add(unsigned char ip[],int BitsToSet, char *output_buffer);
-void ParseIPStr(char ip_str[], unsigned char ip_arr[]);
-int NumOfDigits(int num);
-
-int main(){
-    char ipadd_buffer[PREFIX_LEN] = {0};
-    char ipadd[] = {"192.168.205.1"};
-    char mask = 24;
-    get_broadcast_address(ipadd,mask,ipadd_buffer);
-    printf("for ip address %s/%d the broadcast address is: %s\n",ipadd,mask,ipadd_buffer);
-}/*main end*/
 
 /* Function name: get_broadcast_address
 *  Input: 1. ip_addr - string that contains the ip address. 
