@@ -34,6 +34,7 @@ void set_bits_ip_add(unsigned char ip[],int BitsToSet, char *output_buffer){
         if(j == 8){
             j = 0;
             i--;
+            set = 1;
         }
         ip[i] |= set;
     }

@@ -1,4 +1,16 @@
 {
+  "version": "2.0.0",
+  "command": "gcc",
+  "isShellCommand": true,
+  "args": [
+    "main.c",
+    "ip_math_coding.c",
+    "-g"
+  ],
+  "showOutput": "always",
+  "problemMatchers": [
+    "$gcc"
+  ],
   "tasks": [
     {
       "type": "shell",
@@ -12,29 +24,7 @@
       ],
       "options": {
         "cwd": "/usr/bin"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
       }
-    },
-    {
-      "type": "shell",
-      "label": "gcc-7 build active file",
-      "command": "/usr/bin/gcc-7",
-      "args": [
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
-      "options": {
-        "cwd": "/usr/bin"
-      },
-      "problemMatcher": [
-        "$gcc"
-      ]
     }
-  ],
-  "version": "2.0.0"
+  ]
 }
