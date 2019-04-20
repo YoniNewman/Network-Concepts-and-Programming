@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "ip_math_coding.h"
+#include "general.h"
 
 
 /* Function name: get_broadcast_address
@@ -178,7 +179,7 @@ void get_network_id(char *ip_addr, char mask, char *output_buffer){
 /* Function name: get_network_cardinality
 *  Input: 1. mask - contain a number between 0-32 for the mask 
 *  Output: returns the number of ip address that can be assign to this network
-*  Foe Example: for mask 24 the result will be 254 (1 for broadcast and 1 for netowk id).
+*  For Example: for mask 24 the result will be 254 (1 for broadcast and 1 for netowk id).
 */
 unsigned int get_network_cardinality(char mask){
     unsigned int BitsToBeShift = 32 - mask;
@@ -191,3 +192,20 @@ unsigned int get_network_cardinality(char mask){
     return result - 2;
 }
  
+ /* Function name: check_ip_subnet_membership
+ *  Input: 1. networkid - string that contains the network id. 
+*          2. mask - contain a number between 0-32 for the mask
+*          3. ipadd_check - string that contains the ip address to be checked
+*  Output: true if the ip to be checked is a member of the network id, otherwise returns false.
+*  For Example: for 192.168.205.1/24 the and network id of 192.168.205.0 the result will be true.
+*/
+int check_ip_subnet_membership(char *networkid, char mask, char *ipadd_check){
+    //get ip's network id
+    char ips_network_id[PREFIX_LEN] = {0};
+    get_network_id(ipadd_check,mask,ips_network_id);
+    //compare ip's address network id with inserted network id
+    if(strcmp(ips_network_id,networkid))
+        return FALSE;
+    else
+        return TRUE;
+}

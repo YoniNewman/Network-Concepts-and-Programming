@@ -11,6 +11,7 @@ void Case2Handler();
 void Case3Handler();
 void Case4Handler();
 void Case5Handler();
+void Case6Handler();
 
 
 void PrintMenu(){
@@ -21,6 +22,7 @@ void PrintMenu(){
     printf("3. Get A.B.C.D ip format.\n");
     printf("4. Get network id.\n");
     printf("5. Get network cardinality.\n");
+    printf("6. Check ip subnet membership.\n");
     printf("\nPlease enter your choice:");
 }
 
@@ -48,6 +50,9 @@ int main(){
                 break;    
             case 5:
                 Case5Handler();
+                break;
+            case 6:
+                Case6Handler();
                 break;    
             default:
                 printf("Invalid input! please try again...\n");
@@ -129,6 +134,35 @@ void Case5Handler(){
     }while(mask<0 || mask >32);
     printf("The network cardinality for mask %u is %u\n",mask, get_network_cardinality((char)mask));
 }
+
+void Case6Handler(){
+    char ipadd_buffer[PREFIX_LEN] = {0};
+    char ipadd_check[PREFIX_LEN] = {0};
+    char networkid[PREFIX_LEN] = {0};
+    int mask;
+    //Get Network id
+    printf("Please enter a network id:\n");
+    clearBuffer();
+    fgets(networkid, PREFIX_LEN, stdin);
+    FixIPStr(networkid);
+    //Get Ip address
+    printf("Please enter an ip address:\n");
+    fgets(ipadd_check, PREFIX_LEN, stdin);
+    FixIPStr(ipadd_check);
+        //TODO - add ip correctness checking
+    //Get mask
+    do{
+        printf("Please enter a mask:\n");
+        scanf("%d",&mask);
+        if(mask<0 || mask >32)
+            printf("invalid mask!!!\n");
+    }while(mask<0 || mask >32);
+    if(check_ip_subnet_membership(networkid, (char)mask, ipadd_check))
+        printf("%s/%d is a member of network %s\n",ipadd_check,mask,networkid);
+    else
+        printf("%s/%d is NOT a member of network %s\n",ipadd_check,mask,networkid);
+}
+
 
 void clearBuffer(){ 
       while ( getchar() != '\n' );
