@@ -97,3 +97,29 @@ unsigned char Str2Int(char str[], int *i){
     *i = index;
     return res;
 }
+
+void FixIPStr(char ip[]){
+    for(int i=0;ip[i];i++){
+        if(ip[i]=='\n')
+            ip[i] = 0;
+    }
+}
+
+/* Function name: get_ip_integral_equivalent
+*  Input: 1. ip_addr - string that contains the ip address. 
+*         2. result - out parameter that contatins the value of the ip address
+*  Output: for 192.168.205.1 the output will be 0xC0A8CD01
+*/
+void get_ip_integral_equivalent(char *ip_addr, unsigned int *result){
+    unsigned char ip_str[4] = {0};
+    unsigned int temp_result = 0;
+    ParseIPStr(ip_addr, ip_str);
+    for(int i=0;i<4;i++){
+        temp_result |= ip_str[i];
+        if(i<3)
+            temp_result <<= 8;
+    }
+
+    *result = temp_result;   
+
+}
