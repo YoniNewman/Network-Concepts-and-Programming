@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "ip_math_coding.h"
 
 
@@ -40,6 +41,22 @@ void set_bits_ip_add(unsigned char ip[],int BitsToSet, char *output_buffer){
     }
     Byte2IPStr(output_buffer,ip);
 }
+
+void clear_bits_ip_add(unsigned char ip[],int BitsToSet, char *output_buffer){
+    // for each slot in array, check how many digits
+    int set = 0xFE;
+    int j;
+    for(int i=3, j=0; i >= 0 && BitsToSet; j++, set >>=1, BitsToSet--){  
+        if(j == 8){
+            j = 0;
+            i--;
+            set = 1;
+        }
+        ip[i] &= set;
+    }
+    Byte2IPStr(output_buffer,ip);
+}
+
 
 int NumOfDigits(int num){
     if(num>=100)
@@ -140,3 +157,37 @@ void get_ip_abcd_format(unsigned int ip_addr, char *output_buffer){
     //convert bytes into string
     Byte2IPStr(output_buffer,ip_arr);
 }
+
+
+/* Function name: get_network_id
+*  Input: 1. ip_addr - string that contains the ip address. 
+*         2. mask - contain a number between 0-32 for the mask
+*         3. output_buffer - out parameter that contatins the network id
+*  Output: for 192.168.205.1/24 the output will be 192.168.205.0
+*/
+void get_network_id(char *ip_addr, char mask, char *output_buffer){
+    unsigned char ip_str[4] = {0};
+    //calculate how much bits to set off
+    int BitsToBeSet = 32-mask;
+    //clear those bits
+    unsigned int mask_temp = ~(0xFFFFFFFF << BitsToBeSet);
+    ParseIPStr(ip_addr, ip_str);
+    clear_bits_ip_add(ip_str,BitsToBeSet,output_buffer);
+}
+
+/* Function name: get_network_cardinality
+*  Input: 1. mask - contain a number between 0-32 for the mask 
+*  Output: returns the number of ip address that can be assign to this network
+*  Foe Example: for mask 24 the result will be 254 (1 for broadcast and 1 for netowk id).
+*/
+unsigned int get_network_cardinality(char mask){
+    unsigned int BitsToBeShift = 32 - mask;
+    unsigned int result = 1;
+    if(BitsToBeShift == 32)
+        return 0xFFFFFFFF-1;
+    if(!BitsToBeShift)
+        return 1;
+    result <<= BitsToBeShift;
+    return result - 2;
+}
+ 
