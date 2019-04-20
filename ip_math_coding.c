@@ -123,3 +123,20 @@ void get_ip_integral_equivalent(char *ip_addr, unsigned int *result){
     *result = temp_result;   
 
 }
+
+/* Function name: get_ip_abcd_format
+*  Input: 1. ip_addr - unsigned integer that contains a value of ip address. 
+*         2. output_buffer - out parameter that contains the a.b.c.d format ip address.
+*  Output: for 0xC0A8CD01 the output will be 192.168.205.1
+*/
+void get_ip_abcd_format(unsigned int ip_addr, char *output_buffer){
+    unsigned char ip_arr[4] = {0};
+    unsigned int temp_ip = ip_addr;
+    //seperate ip address into chunks of bytes
+    for(int i=3;i>=0;i--){
+        ip_arr[i] = temp_ip & 0xFF;
+        temp_ip >>= 8 ;
+    }
+    //convert bytes into string
+    Byte2IPStr(output_buffer,ip_arr);
+}

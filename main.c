@@ -8,13 +8,14 @@
 void clearBuffer();
 void Case1Handler();
 void Case2Handler();
-
+void Case3Handler();
 
 void PrintMenu(){
     printf("\n*******Menu*******\n");
     printf("0. Exit.\n");
     printf("1. Get broadcast address.\n");
     printf("2. Get equivalent ip address.\n");
+    printf("3. Get A.B.C.D ip format.\n");
     printf("\nPlease enter your choice:");
 }
 
@@ -33,6 +34,9 @@ int main(){
                 break;
             case 2:
                 Case2Handler();
+                break; 
+             case 3:
+                Case3Handler();
                 break;    
             default:
                 printf("Invalid input! please try again...\n");
@@ -72,6 +76,16 @@ void Case2Handler(){
         //TODO - add ip correctness checking
     get_ip_integral_equivalent(ipadd, &ip_result);
     printf("for ip address %s: interger value is: %u, hex value is: 0x%X",ipadd ,ip_result,ip_result);
+}
+
+void Case3Handler(){
+    char ipadd_buffer[PREFIX_LEN] = {0};
+    unsigned int ip_addr = 0;
+    printf("Please enter an ip address:\n");
+    scanf("%u",&ip_addr);
+        //TODO - add ip correctness checking
+    get_ip_abcd_format(ip_addr, ipadd_buffer);
+    printf("for ip address 0x%X: abcd format is: %s",ip_addr,ipadd_buffer);
 }
 
 void clearBuffer(){ 
